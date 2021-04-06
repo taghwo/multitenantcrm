@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+    web:
+        build: .
+        container_name: "CRM-APP"
+        command: "python ./idendjango/manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - ./var/www/html
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+        restart: always
+        networks:
+            - main-network
+    db:
+        image: mysql:5.7
+        container_name: "CRM-DB"
+        restart: always
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        volumes:
+            - dbdata:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - main-network
+networks:
+    main-network:
+        driver: bridge
+volumes:
+    dbdata:
+        driver: local
+

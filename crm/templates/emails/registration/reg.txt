@@ -1,0 +1,14 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<div class="container">
+<h1>Hello {{fullname | title}}</h1>
+<div class="row">
+    <p>This is to inform you that you have successfully registered</p>
+<div class="col-md-6">Regards</div>
+</div>
+</div>
+</body>
+</html>
