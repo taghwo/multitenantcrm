@@ -14,6 +14,13 @@ class Tenant(models.Model):
     #     ('NGO','NGO')
     # )
     name = models.CharField(unique=True, max_length=100, null=False, blank=False, help_text="Enter business name")
+    business_email = models.EmailField(
+        null=False,
+        blank=False,
+        max_length=255,
+        unique=False,
+        default="example@email.com"
+    )
     address = models.CharField(unique=False, max_length=1000, null=True, blank=True, help_text="Enter business address")
     number_of_staffs = models.PositiveBigIntegerField(unique=False, null=True, default=0, blank=True, help_text="Enter name address")
     industry = models.CharField(unique=False, max_length=1000, null=True, blank=True, help_text="Select a niche for your company")

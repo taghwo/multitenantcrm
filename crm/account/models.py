@@ -17,7 +17,6 @@ class Account(AbstractUser):
         max_length=255,
         unique=True
     )
-
     fullname = models.CharField(
         null=False,
         blank=False,

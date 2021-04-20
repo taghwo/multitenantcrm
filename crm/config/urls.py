@@ -25,6 +25,8 @@ urlpatterns = [
     path("tenants", include('tenant.urls')),
     path("types", include('type.urls')),
     path("tasks", include('task.urls')),
+    path("transactions", include('transaction.urls')),
+    path("invoice/templates", include('invoicetemplate.urls')),
     path("contacts", include('contact.urls')),
     path("companies", include('company.urls')),
     path("auth/", include('authentication.urls')),

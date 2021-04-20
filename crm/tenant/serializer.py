@@ -8,7 +8,7 @@ from account.serializer import AccountNestedSerializer, AccountSerializer
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tenant
-        fields = ('id','name','address', 'banner','number_of_staffs','industry','modules','logo','created_at')
+        fields = ('id','name','address', 'banner','number_of_staffs','industry','business_email','modules','logo','created_at')
         depth = 2
 
     def validate_banner(self, value):

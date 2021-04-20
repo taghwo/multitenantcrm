@@ -17,7 +17,7 @@ class Task(models.Model):
      custom_status = models.JSONField(null=True,blank=True)
 
      class meta:
-         ordering = ['name']
+         ordering = ['created_at']
          verbose_name_plural = ['tasks']
 
      def __str__(self):

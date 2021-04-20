@@ -1,0 +1,16 @@
+EMAIL_HOST='smtp.mailtrap.io'
+EMAIL_PORT=587
+EMAIL_HOST_USER='c09bfac4b39227'
+EMAIL_HOST_PASSWORD='bf2fffc965f89e'
+EMAIL_USE_TLS=False
+
+
+MYSQL_DATABASE=crmpdockerapp
+MYSQL_USER=mills
+MYSQL_HOST=db
+MYSQL_ROOT_PASSWORD=taghwo01
+
+MEDIA_ROOT = "media/"
+MEDIA_URL = "media/"
+
+APP_SECRET='f556bc0zupfhr&k4658n8gkxcx-eh^k-i5l3f@3xmld!9x)c_t'
