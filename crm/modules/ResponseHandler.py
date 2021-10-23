@@ -32,7 +32,7 @@ class ResponseHandler:
     def response_notfound(self,model):
         context = {
             'message':f'{model} not found',
-            'status':'failed'
+            'status':'error'
         }
         return Response(context,status=status.HTTP_404_NOT_FOUND)
 
@@ -43,13 +43,13 @@ class ResponseHandler:
     def response_unexpected(self,error):
         context = {
             'message':error,
-            'status':'failed'
+            'status':'error'
         }
         return Response(context,status=status.HTTP_417_EXPECTATION_FAILED)
     def response_server_error(self,error):
         print(error)
         context = {
             'message':error,
-            'status':'failed'
+            'status':'error'
         }
         return Response(context,status=status.HTTP_500_INTERNAL_SERVER_ERROR)

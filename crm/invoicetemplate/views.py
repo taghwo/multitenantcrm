@@ -20,8 +20,8 @@ class ListCreateInvoiceTemplate(generics.ListCreateAPIView,ResponseHandler):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-
         serializer.is_valid(raise_exception=True)
+
         try:
             serializer.save(tenant=request.user.tenant)
 
@@ -33,31 +33,38 @@ class ShowUpdateDeleteInvoiceTemplate(generics.RetrieveUpdateDestroyAPIView,Resp
   permission_classes = [permissions.IsAuthenticated]
   parser_classes = (parsers.MultiPartParser,)
   serializer_class = InvoiceTemplateSerializer
-
-  def get_queryset(self):
-      return InvoiceTemplate.objects.filter((Q(tenant_id=None)|Q(tenant_id=self.request.user.tenant.id)),uuid=self.kwargs['pk']).first()
+  queryset = ''
 
   def get(self,request, *args,**kwargs):
+        queryset = InvoiceTemplate.objects.filter(tenant_id=self.request.user.tenant.id,uuid=self.kwargs['pk']).first()
 
-      try:
-          serializer = self.get_serializer(self.get_queryset())
-          return self.response_ok(serializer.data)
-      except InvoiceTemplate.DoesNotExist:
-          return self.response_notfound("InvoiceTemplate")
+        if not queryset:
+            return self.response_notfound('Invoice template')
+
+        try:
+            serializer = self.get_serializer(queryset )
+            return self.response_ok(serializer.data)
+        except InvoiceTemplate.DoesNotExist:
+            return self.response_notfound("InvoiceTemplate")
 
   def put(self,request, *args,**kwargs):
-      try:
-          serializer = self.get_serializer(self.get_queryset(), data=request.data)
-          serializer.is_valid(raise_exception=True)
-          serializer.save()
-          print("here")
-          return self.response_ok(serializer.data,'InvoiceTemplate updated')
-      except Exception as e:
-          return self.response_unexpected(e)
+        queryset = InvoiceTemplate.objects.filter(tenant_id=self.request.user.tenant.id,uuid=self.kwargs['pk']).first()
 
-  def delete(self,request,pk):
-          queryset = self.get_queryset()
-          template = self.get_queryset()
+        if not queryset:
+            return self.response_notfound('Invoice template')
+
+        try:
+            serializer = self.get_serializer(queryset)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return self.response_ok(serializer.data,'InvoiceTemplate updated')
+        except Exception as e:
+            return self.response_unexpected(e)
+
+  def delete(self,request, *args,**kwargs):
+          queryset = InvoiceTemplate.objects.filter(tenant_id=self.request.user.tenant.id,uuid=self.kwargs['pk']).first()
+          template = queryset
+
           if not queryset:
               return self.response_notfound('Invoice template')
           queryset.delete()

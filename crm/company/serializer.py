@@ -59,22 +59,3 @@ class CompanySerializer(serializers.ModelSerializer):
           if value and not isinstance(value,list):
              raise ValidationError('must be an array of objects with value key pairs')
           return value
-
-
-    # name = models.CharField(null=False,blank=False,max_length=1000)
-    # description = models.CharField(null=True,blank=True,max_length=1000)
-    # name_of_ceo = models.CharField(null=True,blank=True,max_length=500)
-    # address = models.CharField(null=True,blank=True,max_length=1000)
-    # emails = models.CharField(null=True,blank=True,max_length=1000,help_text="enter comma separated email address")
-    # phone_numbers = models.CharField(null=True,blank=True,max_length=1000,help_text="enter comma separated phone numbers address")
-    # website = models.CharField(null=True,blank=True,max_length=250)
-    # country = models.CharField(null=True,blank=True,max_length=500)
-    # region = models.CharField(null=True,blank=True,max_length=500)
-    # city = models.CharField(null=True,blank=True,max_length=500)
-    # industry = models.CharField(null=True,blank=True,max_length=500)
-    # social_accounts = models.JSONField(null=True,blank=True,max_length=1000)
-    # tenant = models.ForeignKey(Tenant, related_name="companies",null=True, blank=True,default='unknown', on_delete=SET_NULL)
-    # created_by = models.ForeignKey(Account, related_name="usercreatedcompany",null=True, default='unknown', blank=True, on_delete=SET_NULL)
-    # updated_by = models.ForeignKey(Account, related_name="userupdatedbycompany",null=True, default='unknown', blank=True, on_delete=SET_NULL)
-    # custom_fields = models.JSONField(null=True,blank=True)
-    # status = models.BooleanField(default=1)

@@ -12,18 +12,15 @@ class ListCreateInvoice(ListCreateAPIView,ResponseHandler):
     pagination_class = BasePaginator
 
     def get_queryset(self):
-        return Invoice.objects.filter(tenant__id=self.request.user.tenant.id).order_by('-created_at')
+        return Invoice.objects.filter(tenant__id=self.request.user.tenant.id)
 
     def post(self, request, *args, **kwargs):
         serializer = InvoiceWriteSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
         try:
             serializer.save(tenant=request.user.tenant,created_by=request.user)
-
-            data = Invoice.objects.get(pk=serializer.data['id'])
-
-            new_invoice = InvoiceReadSerializer(data)
-            return self.response_created(new_invoice.data,'Invoice created')
+            return self.response_created(serializer.data,'Invoice saved')
         except APIException as e:
                 return self.response_unexpected(e)
 

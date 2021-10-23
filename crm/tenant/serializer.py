@@ -3,7 +3,7 @@ from tenant.models import Tenant
 from account.models import Account
 from modules.FileTypeValidator import ValidateUploadedFile
 from account.serializer import AccountNestedSerializer, AccountSerializer
-
+from modules.Util import rand_uuid_str
 
 class TenantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,7 +18,7 @@ class TenantSerializer(serializers.ModelSerializer):
 
         filename = self.get_initial()['name'].replace(' ', '-')
 
-        value.name = filename+"."+file.get_file_extension()
+        value.name = f"{filename.lower()[:6]}-{rand_uuid_str}.{file.get_file_extension()}"
 
         return value
 
@@ -29,7 +29,7 @@ class TenantSerializer(serializers.ModelSerializer):
 
         filename = self.get_initial()['name'].replace(' ', '-')
 
-        value.name = filename+"."+file.get_file_extension()
+        value.name = f"{filename.lower()[:6]}-{rand_uuid_str}.{file.get_file_extension()}"
 
         return value
 

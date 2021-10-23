@@ -1,19 +1,14 @@
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from abc import ABCMeta, abstractmethod
 
 
-class BaseMailer:
+class BaseMailer(metaclass=ABCMeta):
     __to, __sender,  __html, __text, __subject = '', '', '', '', ''
 
-    def __init__(self):
-
-        if hasattr(self, 'render'):
-
-            self.render()
-
-        else:
-
-            raise NotImplementedError(f'Please declare a render method in {self}')
+    @abstractmethod
+    def render(self):
+        pass
 
     def subject(self, data: str):
         """
@@ -88,9 +83,7 @@ class BaseMailer:
         return self
 
     def send(self):
-
         try:
-            print('about to send')
             send_mail(self.__subject, self.__text, self.__sender, self.__to,
                       fail_silently=False, html_message=self.__html)
 

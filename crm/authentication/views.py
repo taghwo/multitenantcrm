@@ -14,9 +14,6 @@ from account.models import Account
 from tenant.serializer import TenantSerializer
 from tenant.models import Tenant
 
-from notification.registrationmail import RegistrationMail
-
-
 class LoginView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
 

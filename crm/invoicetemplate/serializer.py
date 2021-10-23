@@ -2,7 +2,7 @@ from rest_framework import serializers
 from invoicetemplate.models import InvoiceTemplate
 from tenant.serializer import TenantNestedSerializer
 from modules.FileTypeValidator import ValidateUploadedFile
-
+from modules.Util import rand_uuid_str
 class InvoiceTemplateSerializer(serializers.ModelSerializer):
     tenant = TenantNestedSerializer(read_only=True)
 
@@ -19,7 +19,7 @@ class InvoiceTemplateSerializer(serializers.ModelSerializer):
 
         filename = self.get_initial()['name'].replace(' ', '-')
 
-        value.name = filename+"."+file.get_file_extension()
+        value.name = f"{filename.lower()[:6]}-{rand_uuid_str}.{file.get_file_extension()}"
 
         return value
 

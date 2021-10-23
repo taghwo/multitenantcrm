@@ -5,14 +5,6 @@ from django.utils.timezone import now
 
 # Create your models here.
 class Tenant(models.Model):
-    # industry_choices = (
-    #     ('tech','technology')
-    #     ('edu','education')
-    #     ('ICT','Technology')
-    #     ('Agro','Agriculture')
-    #     ('Inf0','Information')
-    #     ('NGO','NGO')
-    # )
     name = models.CharField(unique=True, max_length=100, null=False, blank=False, help_text="Enter business name")
     business_email = models.EmailField(
         null=False,

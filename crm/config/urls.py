@@ -13,6 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework_simplejwt.views import (
@@ -27,9 +30,17 @@ urlpatterns = [
     path("tasks", include('task.urls')),
     path("transactions", include('transaction.urls')),
     path("invoice/templates", include('invoicetemplate.urls')),
+    path("invoices", include('invoice.urls')),
+    path("feedback", include('feedback.urls')),
     path("contacts", include('contact.urls')),
     path("companies", include('company.urls')),
     path("auth/", include('authentication.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
 ]
+
+# Serving the media files in development mode
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns += staticfiles_urlpatterns()
