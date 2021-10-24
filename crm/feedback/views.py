@@ -7,7 +7,7 @@ from .models import Feedback
 from modules.ResponseHandler import ResponseHandler
 from modules.Paginator import BasePaginator
 from .serializer import FeedbackSerializer
-
+from .tasks import add
 class ListCreateFeedback(ListCreateAPIView, ResponseHandler):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = FeedbackSerializer
@@ -17,7 +17,6 @@ class ListCreateFeedback(ListCreateAPIView, ResponseHandler):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         try:
             serializer.save()
             return self.response_created(serializer.data, 'Feedback submitted')

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
-from signals.senders import new_account
 from rest_framework import permissions, status, generics
 from django.contrib.auth import authenticate, login, logout
 from .serializer import (AuthenticationSerializer,
@@ -12,7 +11,7 @@ from .serializer import (AuthenticationSerializer,
 from django.contrib.auth.models import User
 from account.models import Account
 from tenant.serializer import TenantSerializer
-from tenant.models import Tenant
+from .tasks import new_user_job
 
 class LoginView(generics.CreateAPIView):
     permission_classes = (permissions.AllowAny,)
@@ -77,7 +76,9 @@ class RegisterView(generics.CreateAPIView):
                 'access_token': str(refresh.access_token),
                 'user': serialized_user.data
                 }
-        new_account.send(sender=Account, user=serialized_user.data)
+
+            new_user_job.delay(user=serialized_user.data)
+
         return Response(context, status=status.HTTP_200_OK)
 
 
