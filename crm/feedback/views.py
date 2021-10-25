@@ -7,7 +7,7 @@ from .models import Feedback
 from modules.ResponseHandler import ResponseHandler
 from modules.Paginator import BasePaginator
 from .serializer import FeedbackSerializer
-from .tasks import add
+
 class ListCreateFeedback(ListCreateAPIView, ResponseHandler):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = FeedbackSerializer

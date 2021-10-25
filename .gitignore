@@ -14,6 +14,7 @@ data
 .vscode
 # C extensions
 *.so
+*celery.logs
 
 # Distribution / packaging
 .Python
@@ -60,6 +61,11 @@ coverage.xml
 
 # Django stuff:
 *.log
+*.logs
+*.bak
+*.dir
+*.dat
+
 local_settings.py
 
 # Flask stuff:

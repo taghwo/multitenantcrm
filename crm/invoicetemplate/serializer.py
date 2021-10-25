@@ -19,7 +19,7 @@ class InvoiceTemplateSerializer(serializers.ModelSerializer):
 
         filename = self.get_initial()['name'].replace(' ', '-')
 
-        value.name = f"{filename.lower()[:6]}-{rand_uuid_str}.{file.get_file_extension()}"
+        value.name = f"{filename.lower()[:6]}-{rand_uuid_str()}.{file.get_file_extension()}"
 
         return value
 
